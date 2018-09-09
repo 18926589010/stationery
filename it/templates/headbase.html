@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>AECOM IT Device Manager Tools</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/static/bootstrap/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="/static/bootstrap/bootstrap-theme.min.css" >
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="/static/bootstrap/bootstrap.min.js" ></script>
+
+</head>
+<body>
+
+
+
+
+
+<div class="container">
+	<div class="row-fluid">
+		<div class="span8">
+			<h2>计算机设备管理信息系统</h2>
+   		 	<p>IT Equipment Management System</p>
+		</div>
+
+	</div>
+</div>
+<div class="container">
+
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index">主页：</a>
+	</div>
+	<div>
+		<ul class="nav navbar-nav">
+
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					设备管理
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="/deviceman/pccreate">新增设备</a></li>
+					<li><a href="/deviceman/display_pc">查询设备</a></li>
+					<li><a href="#">设备报废</a></li>
+					<li class="divider"></li>
+					<li><a href="borrowscreate">借用设备</a></li>
+					<li class="divider"></li>
+					<li><a href="borrowsedit">归还设备</a></li>
+				</ul>
+			</li>
+
+            			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					用户管理
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="/deviceman/usercreate">新建用户</a></li>
+					<li><a href="/deviceman/display_user">查询用户</a></li>
+					<li><a href="#">用户离职</a></li>
+					<li class="divider"></li>
+
+				</ul>
+			</li>
+
+            			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					清单报表
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="/deviceman/report">设备清单</a></li>
+					<li><a href="#">用户清单</a></li>
+					<li><a href="/deviceman/totalchart">汇总图表</a></li>
+					<li class="divider"></li>
+
+				</ul>
+			</li>
+
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+						<li>
+							{% if user.is_authenticated %}
+						<a href="/account/logout">注消 {{ user.username }}	</a>
+							{% else %}
+							<a href="/account/login">登录</a>
+							{% endif %}
+						</li>
+
+		</ul>
+	</div>
+
+	</div>
+
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+    {% block content %}
+
+    {% endblock %}
+
+</body>
+</html>

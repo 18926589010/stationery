@@ -1,0 +1,72 @@
+<!-- myfirstvis/templates/pyecharts.html -->
+
+<!DOCTYPE html>
+
+<div>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>Equipment management</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="/static/jquery-3.3.1.js"></script>
+
+
+
+
+
+
+
+    {% for jsfile_name in script_list %}
+
+        <script src="{{ host }}/{{ jsfile_name }}.js"></script>
+
+    {% endfor %}
+
+</head>
+
+<body>
+
+<div class="container">
+    {%  include "headbase.html" %}
+    <a href="#"   class="list-group-item active" >
+  当前模块：首页->设备概览
+        </a>
+   <div  class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped table-bordered">
+            <tr>
+                 <td>
+                <h4>设备分类数量统计-柱状图/条形图</h4>
+                </td>
+                <td align="center" >{{ wmyechart|safe }}</td>
+
+            </tr>
+                <tr>
+                    <td>
+                    <h4>设备分类百分比统计-饼图</h4>
+                </td>
+                <td align="center" >{{ ipie|safe }}</td>
+
+            </tr>
+        </table>
+
+<table>
+
+    <tr>
+        <td>{{ myechart|safe }}</td><td>{{ lmyechart|safe }}</td><td>{{ dmyechart|safe }}</td>
+    </tr>
+        <tr>
+        <td>{{ smyechart|safe }}</td><td>{{ swmyechart|safe }}</td><td>{{ rmyechart|safe }}</td>
+    </tr>
+
+</table>
+    </div>
+   </div>
+</body>
+</div>
+</div>
+</html>
