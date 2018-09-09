@@ -1,0 +1,67 @@
+{% extends 'stationery/stat_apply_base.html' %}
+{% block content %}
+
+<div  class="row">
+
+    <div class="col-sm-8">
+
+<h4 >Employee Information <span class="glyphicon glyphicon-question-sign"></span></h4>
+<table class="table table-striped table-bordered">
+<thead>
+           <tr>
+             <th>员工姓名</th>
+             <th>邮件址址</th>
+              <th>部门</th>
+
+
+           </tr>
+ </thead>
+ <tbody>
+           {% if request.session.full_name %}
+           <tr>
+             <td>{{ request.session.full_name }}</td>
+               <td>{{ request.session.email_address}}</a></td>
+               <td>{{ request.session.dept_name }}</td>
+
+           </tr>
+            {% endif %}
+</tbody>
+</table>
+
+       <a href="stat_apply_index" >
+           <span class="glyphicon glyphicon-question-sign"></span> 开始领用文具</a>
+
+    </div>
+        <div class="col-sm-4">
+<h4 >Applaction Histories<span class="glyphicon glyphicon-shopping-cart"></span></h4>
+<table class="table table-striped table-bordered">
+<thead>
+           <tr>
+             <th>序号</th>
+             <th>文具名称</th>
+              <th>数量</th>
+
+
+           </tr>
+ </thead>
+ <tbody>
+           {% for cart in carts %}
+           <tr>
+             <td>{{ forloop.counter }}</td>
+               <td>{{ cart.stationery }}</a></td>
+               <td>{{ cart.num }}</td>
+
+
+           </tr>
+            {% endfor %}
+</tbody>
+</table>
+      <div align="left" >
+
+</div>
+        </div>
+ </div>
+
+
+{% endblock %}
+

@@ -12,6 +12,7 @@ urlpatterns = [
  path('submit_cart', views.submit_cart),
  path('complete_order',views.complete_order),
  path('apply_login', views.apply_login),
+ path('apply_index', views.apply_index),
  path('ajax',views.ajax),
 
 ]

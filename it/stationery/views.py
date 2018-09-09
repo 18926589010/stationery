@@ -48,15 +48,17 @@ def stat_apply_index(request):
     if user_list_id==None:
         return HttpResponseRedirect('apply_login')
     #cart = request.session.get("cart", None)
-    carts = order_record_master.objects.filter(user_list_id=user_list_id, order_status='submitted')
+    #carts = order_record_master.objects.filter(user_list_id=user_list_id, order_status='submitted')
     if request.method == 'GET':
         stationerys=order_record_slave.objects.values('stationery__spec').annotate(number=Sum("order_num"),spec=F('stationery__spec'),id=F('stationery_id'), name=F('stationery__name')).order_by('-number')[:10]
         print(stationerys)
-        return render(request, 'stationery/stat_apply_index.html', {'carts': carts,'stationerys':stationerys})
+        return render(request, 'stationery/stat_apply_index.html', {'stationerys': stationerys})
+        #return render(request, 'stationery/stat_apply_index.html', {'carts': carts,'stationerys':stationerys})
     if request.method=='POST':
         stationery_name=request.POST.get('stationery_name')
         stationerys=stationery.objects.filter(name__icontains=stationery_name)
-        return render(request,'stationery/stat_apply_index.html',{'carts':carts,'stationerys':stationerys})
+        return render(request, 'stationery/stat_apply_index.html', {'stationerys': stationerys})
+        #return render(request,'stationery/stat_apply_index.html',{'carts':carts,'stationerys':stationerys})
 
 def add_to_cart(request):
     user_list_id=request.session.get('user_list_id',None)
@@ -70,9 +72,11 @@ def add_to_cart(request):
     return HttpResponseRedirect('stat_apply_index')
 
 def clean_cart(request):
-    user_list_id=request.session.get('user_list_id', None)
-    order_record_master.objects.filter(user_list_id=user_list_id, order_status__isnull=True).delete()
-    order_record_slave.objects.filter(order_record_master_id=3).delete()
+    user_list_id=request.session.get('user_list_id')
+    orderid=request.session.get('orderid')
+    order_record_slave.objects.filter(order_record_master_id=orderid).delete()
+    #order_record_master.objects.filter(user_list_id=user_list_id, order_status='shopping').delete()
+
 
     return HttpResponseRedirect('stat_apply_index')
 
@@ -105,6 +109,8 @@ def apply_login(request):
             #查询是否有未提交的申请，
             request.session['user_list_id'] = user.id  # #把当前user_list_id传给session
             request.session['full_name'] = user.full_name     #把当前full_name传给session
+            request.session['email_address']=email_address
+            request.session['dept_name'] = user.dept_list.dept_name
 
             order_record_masters=order_record_master.objects.filter(user_list_id=user.id, order_status='shopping')
             if order_record_masters.exists():
@@ -121,7 +127,8 @@ def apply_login(request):
                 for order in orders:
                     request.session['orderid']=order.id
                     print(order.id)
-        return render(request,'stationery/apply_login.html',{'users':users})
+        return HttpResponseRedirect("apply_index")
+        #return render(request,'stationery/apply_index.html',{'users':users})
 
 
 
@@ -158,5 +165,6 @@ def ajax(request):
         result = json.dumps(ret)
         return HttpResponse(result, "application/json")
 
-
+def apply_index(request):
+    return render(request,'stationery/apply_index.html')
 
