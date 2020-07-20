@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameField(
-            model_name='order_record_slave',
+            model_name='order_record_subordinate',
             old_name='num',
             new_name='order_num',
         ),
